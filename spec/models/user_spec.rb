@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 describe User do
-  it 'rejects user@mycom' do
-    user = FactoryGirl.build(:user, email: 'user@mycom')
-    expect(user).to_not be_valid
-  end
+  it { should have_valid(:email).when('user@example.com') }
+  it { should_not have_valid(:email).when('user@mycom',
+    'usermy.com',
+    'user',
+    '.com',
+    'my.com') }
 end
